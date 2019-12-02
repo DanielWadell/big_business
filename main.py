@@ -1,5 +1,6 @@
 from flask import Flask, request
 import requests
+from flask_ngrok import run_with_ngrok
 from flask_assistant import Assistant, tell
 
     # to see the full request and response objects
@@ -8,6 +9,7 @@ import logging
 logging.getLogger('flask_assistant').setLevel(logging.DEBUG)
 
 app = Flask(__name__)
+# run_with_ngrok(app)
 assist = Assistant(app, project_id='GOOGLE_CLOUD_PROJECT_ID')
 
 @assist.action('Demo')
@@ -21,4 +23,4 @@ def summary():
                                                                                         params={"category":"NBEV"}).json()
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
