@@ -1,5 +1,8 @@
 from flask import Flask, request
 import requests
+import os
+from intro_to_flask import app
+port = int(os.environ.get("PORT", 5000))
 from flask_ngrok import run_with_ngrok
 from flask_assistant import Assistant, tell
 
@@ -23,4 +26,4 @@ def summary():
                                                                                         params={"category":"NBEV"}).json()
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True, host='0.0.0.0', port=port)
