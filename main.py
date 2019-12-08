@@ -21,10 +21,21 @@ def hello_world():
 
 @app.route('/summary')
 def summary():
-    # return requests.get("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/get-news", headers={"X-RapidAPI-Key":"29180c2784msha6aad19076e8d65p1dadd5jsn88b8e10ea1cf"},
-    #        
-    speech = 'Microphone check 1, 2 what is this?'
-    return tell(speech)                                                                             params={"category":"NBEV"}).json()
+    response = requests.get("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/get-news", headers={"X-RapidAPI-Key":"29180c2784msha6aad19076e8d65p1dadd5jsn88b8e10ea1cf"},
+                                                                                        params={"category":"NBEV"}).json()
+    
+    print(response)
+    response_obj = {
+        "fulfillmentText":" ",
+        "fulfillmentMessages": [{"text": {"text": []}}],
+        "source": " "
+    }
+    
+    for item in response['items']['result']:
+        response_obj['fulfillmentMessages'][0]['text']['text'].append(item['summary'][0:250])
+        
 
+    # return response['items']['result'][0]['summary']
+    return response_obj
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=port)
