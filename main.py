@@ -1,5 +1,6 @@
 from flask import Flask, request
 import requests
+import random
 import os
 port = int(os.environ.get("PORT", 5000))
 from flask_ngrok import run_with_ngrok
@@ -9,7 +10,7 @@ from flask_assistant import Assistant, tell
     # set logging level to DEBUG
 import logging
 logging.getLogger('flask_assistant').setLevel(logging.DEBUG)
-
+used = []
 app = Flask(__name__)
 # run_with_ngrok(app)
 assist = Assistant(app, project_id='GOOGLE_CLOUD_PROJECT_ID')
@@ -34,10 +35,15 @@ def summary():
     for item in response['items']['result']:
         response_obj['fulfillmentMessages'][0]['text']['text'].append(item['summary'][0:250])
 
-    response_obj['fulfillmentText'] = 'hehehohoheheahahohohohoheheahhehahhodoodlebopskeebopdootdoodleootdoodoorestinpeacejuiceworld'
         
+    rand = random.randint(0, len(response_obj['fulfillmentMessages'][0]['text']['text'])-1)
+    if rand not in used:
+        response_obj['fulfillmentText'] = response_obj['fulfillmentMessages'][0]['text']['text'][rand]
+        used.append(rand)
+    else:
+        response_obj['fulfillmentText'] = 'No more information updates'
+        used.clear()
 
-    # return response['items']['result'][0]['summary']
     return response_obj
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=port)
