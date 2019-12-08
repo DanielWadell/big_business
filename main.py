@@ -34,7 +34,7 @@ def summary():
     for item in response['items']['result']:
         response_obj['fulfillmentMessages'][0]['text']['text'].append(item['summary'][0:250])
 
-    response_obj['fulfillmentText'] = 'hehehohoheheahahohohohoheheahhehahho'
+    response_obj['fulfillmentText'] = 'hehehohoheheahahohohohoheheahhehahhodoodlebopskeebopdootdoodleootdoodoorestinpeacejuiceworld'
         
 
     # return response['items']['result'][0]['summary']
