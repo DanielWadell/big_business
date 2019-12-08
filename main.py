@@ -19,7 +19,7 @@ def hello_world():
     speech = 'Microphone check 1, 2 what is this?'
     return tell(speech)
 
-@app.route('/webhook')
+@app.route('/webhook', methods=['GET', 'POST'])
 def summary():
     response = requests.get("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/get-news", headers={"X-RapidAPI-Key":"29180c2784msha6aad19076e8d65p1dadd5jsn88b8e10ea1cf"},
                                                                                         params={"category":"NBEV"}).json()
