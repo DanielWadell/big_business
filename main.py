@@ -22,8 +22,8 @@ def hello_world():
 
 @app.route('/webhook', methods=['GET', 'POST'])
 def summary():
-    response = requests.get("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/get-news", headers={"X-RapidAPI-Key":"29180c2784msha6aad19076e8d65p1dadd5jsn88b8e10ea1cf"},
-                                                                                        params={"category":"NBEV"}).json()
+    response = requests.get("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-newsfeed", headers={"X-RapidAPI-Key":"29180c2784msha6aad19076e8d65p1dadd5jsn88b8e10ea1cf"},
+                                                                                        params={"category":"generalnews"}).json()
     
     print(response)
     response_obj = {
