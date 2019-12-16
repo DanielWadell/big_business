@@ -3,22 +3,9 @@ import requests
 import random
 import os
 port = int(os.environ.get("PORT", 5000))
-from flask_ngrok import run_with_ngrok
-from flask_assistant import Assistant, tell
 
-    # to see the full request and response objects
-    # set logging level to DEBUG
-import logging
-logging.getLogger('flask_assistant').setLevel(logging.DEBUG)
 used = []
 app = Flask(__name__)
-# run_with_ngrok(app)
-assist = Assistant(app, project_id='GOOGLE_CLOUD_PROJECT_ID')
-
-@assist.action('Demo')
-def hello_world():
-    speech = 'Microphone check 1, 2 what is this?'
-    return tell(speech)
 
 @app.route('/webhook', methods=['GET', 'POST'])
 def summary():
@@ -45,5 +32,6 @@ def summary():
         used.clear()
 
     return response_obj
+    
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=port)
